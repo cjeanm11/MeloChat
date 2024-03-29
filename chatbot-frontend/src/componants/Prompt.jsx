@@ -4,6 +4,7 @@ const disabled_class =
   "h-full p-4 bg-gray-500 text-white rounded-full cursor-pointer";
 const button_class =
   "h-full p-4 bg-orange-500 text-white rounded-full cursor-pointer";
+const url = "http://localhost:8080/chat";
 
 function Prompt(props) {
   const [getPrompt, setPrompt] = createSignal("");

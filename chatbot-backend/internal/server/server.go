@@ -17,6 +17,7 @@ type Server struct {
 	httpServer *http.Server
 }
 
+
 type Option func(*Server)
 
 func NewServer(options ...Option) *Server {
