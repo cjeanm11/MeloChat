@@ -14,9 +14,10 @@ import (
 )
 
 var llm *services.LLM
+
 // Response struct
 type Response struct {
-    Result string `json:"result"`
+	Result string `json:"result"`
 }
 
 func init() {
@@ -40,17 +41,22 @@ func (s *Server) RegisterRoutes() http.Handler {
 
 	return e
 }
+
 // HelloWorldHandler handles requests to the root "/" endpoint
 func (s *Server) Chat(c echo.Context) error {
-	var chat models.Conversation		
+	var chat models.Conversation
 	if err := json.NewDecoder(c.Request().Body).Decode(&chat); err != nil {
 		return echo.NewHTTPError(http.StatusBadRequest, "Error decoding request body: %v", err)
 	}
 	jsonBytes, err := json.Marshal(chat)
-	fmt.Println(string(jsonBytes), err) 
-	llm.GenerateCompletion(string(jsonBytes))
+	fmt.Println(string(jsonBytes), err)
 
-	return c.JSON(http.StatusOK, Response{Result: string(jsonBytes)})
+	res, err := llm.GenerateCompletion(string(jsonBytes))
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, "Error generating response: %v", err)
+	}
+
+	return c.JSON(http.StatusOK, Response{Result: res})
 }
 
 // HealthHandler handles requests to the "/health" endpoint

@@ -22,7 +22,7 @@ type Option func(*Server)
 
 func NewServer(options ...Option) *Server {
 	s := &Server{
-		port: 8080,
+		port: loadPortFromEnv(),
 		db:   database.New(),
 	}
 

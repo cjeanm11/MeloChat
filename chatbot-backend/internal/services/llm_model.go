@@ -25,7 +25,7 @@ func NewLLM() *LLM {
 }
 
 // GenerateCompletion function to generate text completion using the LLMStruct
-func (lm *LLM) GenerateCompletion( prompt string) (string, error) {
+func (lm *LLM) GenerateCompletion(prompt string) (string, error) {
     completion, err := llms.GenerateFromSinglePrompt(lm.ctx, lm.client, prompt)
     if err != nil {
 		log.Fatal(err)
