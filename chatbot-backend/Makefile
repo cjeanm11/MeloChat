@@ -7,8 +7,8 @@ build:
 
 # Run the application
 run:
+	@sh './scripts/start_py_server.sh' &
 	@go run cmd/api/main.go
-
 # Create DB container
 docker-run:
 	@if docker compose up 2>/dev/null; then \

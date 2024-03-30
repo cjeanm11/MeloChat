@@ -2,7 +2,10 @@
 const {app, BrowserWindow } = require('electron')
 
 app.on('ready', () => {
-  const mainWindow = new BrowserWindow({ width: 800, height: 600, frame: true });
+  const mainWindow = new BrowserWindow({ 
+    width: 800, height: 600, frame: false, titleBarStyle: 'hidden',
+    icon: __dirname + '/src/assets/favicon.ico',
+ });
   mainWindow.loadURL('http://localhost:8000');
 });
 
@@ -14,7 +17,10 @@ app.on('window-all-closed',async () => {
 // On macOS it's common to leave the app running until the user explicitly quits (Cmd + Q)
 app.on('activate', () => {
   if (BrowserWindow.getAllWindows().length === 0) {
-    const mainWindow = new BrowserWindow({ width: 800, height: 600, frame: true });
+    const mainWindow = new BrowserWindow({ 
+      width: 800, height: 600, frame: false, titleBarStyle: 'hidden',
+      icon: __dirname + '/src/assets/favicon.ico',
+   });
     mainWindow.loadURL('http://localhost:8000');
   }
 });

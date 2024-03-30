@@ -14,7 +14,6 @@ import (
 
 type Service interface {
 	Health() map[string]string
-	AddUser(username string, email string) map[string]string
 	Close() error
 }
 
@@ -46,28 +45,6 @@ func (s *service) Close() error {
 	return nil
 }
 
-func (s *service) AddUser(username string, email string) map[string]string {
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
-
-	stmt, err := s.db.PrepareContext(ctx, "INSERT INTO users (username, email) VALUES ($1, $2) RETURNING id")
-	if err != nil {
-		return map[string]string{"error": err.Error()}
-	}
-
-	var userID int
-	err = stmt.QueryRowContext(ctx, username, email).Scan(&userID)
-	if err != nil {
-		return map[string]string{"error": err.Error()}
-	}
-
-	defer stmt.Close()
-
-	return map[string]string{
-		"message": "User added successfully",
-		"user_id": fmt.Sprintf("%d", userID),
-	}
-}
 func (s *service) Health() map[string]string {
 	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
 	defer cancel()

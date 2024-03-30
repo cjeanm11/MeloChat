@@ -2,15 +2,13 @@ package server
 
 import (
 	"encoding/json"
-	"net/http"
-	"server-template/internal/model"
-	"server-template/internal/services"
-
 	"fmt"
+	"net/http"
+	"server-template/internal/services"
+	"strconv"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
-	// "server-template/internal/database"
 )
 
 var llm *services.LLM
@@ -34,29 +32,54 @@ func (s *Server) RegisterRoutes() http.Handler {
 		AllowHeaders:     []string{"*"},
 		AllowCredentials: true,
 	}))
+	e.Static("/temp", "./.temp")
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
-	e.POST("/chat", s.Chat)
+	e.POST("/api/chat", s.Chat)
+	e.GET("/api/download_audio/:file_id", s.downloadAudio)
 	e.GET("/health", s.HealthHandler)
 
 	return e
 }
 
-// HelloWorldHandler handles requests to the root "/" endpoint
+type Message struct {
+	Description string
+}
+
+// HealthHandler handles requests to the "/api/chat" endpoint
 func (s *Server) Chat(c echo.Context) error {
-	var chat models.Conversation
+	var chat Message
 	if err := json.NewDecoder(c.Request().Body).Decode(&chat); err != nil {
-		return echo.NewHTTPError(http.StatusBadRequest, "Error decoding request body: %v", err)
+		return c.JSON(http.StatusBadRequest, Response{Result: err.Error()})
 	}
-	jsonBytes, err := json.Marshal(chat)
+
+	jsonBytes, err := json.Marshal(chat.Description)
 	fmt.Println(string(jsonBytes), err)
-
-	res, err := llm.GenerateCompletion(string(jsonBytes))
+	res, err := llm.GenerateAudio(string(jsonBytes))
 	if err != nil {
-		return echo.NewHTTPError(http.StatusInternalServerError, "Error generating response: %v", err)
+		return c.JSON(http.StatusBadRequest, Response{Result: err.Error()})
 	}
 
-	return c.JSON(http.StatusOK, Response{Result: res})
+	return c.JSON(http.StatusOK, res)
+}
+
+// HealthHandler handles requests to the "/api/download_audio/:file_id" endpoint
+func (s *Server) downloadAudio(c echo.Context) error {
+	// Parse file_id from the URL path
+	fileID, err := strconv.Atoi(c.Param("file_id"))
+	println(fileID)
+	if err != nil {
+		return err
+	}
+
+	// Get the temporary directory
+	directory := ".temp"
+
+	// Construct the filename
+	filename := strconv.Itoa(fileID) + ".wav"
+
+	// Serve the file
+	return c.File(directory + "/" + filename)
 }
 
 // HealthHandler handles requests to the "/health" endpoint
