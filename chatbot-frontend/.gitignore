@@ -1,2 +1,22 @@
 node_modules
 dist
+
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+
+tmp/
+
+# IDE specific files
+.vscode
+.idea
+
+# .env file
+.env
+
+# others bro.
+.idea/
+.history/

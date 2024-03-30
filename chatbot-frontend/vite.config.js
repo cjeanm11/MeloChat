@@ -16,5 +16,6 @@ export default defineConfig({
   },
   build: {
     target: 'esnext',
+    outDir: 'dist', // Change this to your desired output directory
   },
 });
