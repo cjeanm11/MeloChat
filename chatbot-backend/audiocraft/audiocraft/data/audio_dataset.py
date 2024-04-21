@@ -467,7 +467,7 @@ class AudioDataset:
             kwargs: Additional keyword arguments for the AudioDataset.
         """
         root = Path(root)
-        if root.is_dir():
+        if os.path.is_file(root):
             if (root / 'data.jsonl').exists():
                 root = root / 'data.jsonl'
             elif (root / 'data.jsonl.gz').exists():
@@ -490,7 +490,7 @@ class AudioDataset:
             kwargs: Additional keyword arguments for the AudioDataset.
         """
         root = Path(root)
-        if root.is_file():
+        if os.path.is_file(root):
             meta = load_audio_meta(root, resolve=True)
         else:
             meta = find_audio_files(root, exts, minimal=minimal_meta, resolve=True)
