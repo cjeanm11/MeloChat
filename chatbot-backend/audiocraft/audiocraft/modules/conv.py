@@ -216,8 +216,6 @@ class StreamableConvTranspose1d(nn.Module):
                                           causal=causal, norm=norm, norm_kwargs=norm_kwargs)
         self.causal = causal
         self.trim_right_ratio = trim_right_ratio
-        assert self.causal or self.trim_right_ratio == 1., \
-            "`trim_right_ratio` != 1.0 only makes sense for causal convolutions"
         assert self.trim_right_ratio >= 0. and self.trim_right_ratio <= 1.
 
     def forward(self, x):
