@@ -834,8 +834,6 @@ class ConditioningProvider(nn.Module):
                     return v
                 if isinstance(v, list):
                     return ", ".join(v)
-                else:
-                    RuntimeError(f"unknown type for text value! ({type(v), v})")
 
             desc = cond.text['description']
             meta_data = ""
