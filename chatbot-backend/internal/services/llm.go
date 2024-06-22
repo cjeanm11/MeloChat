@@ -10,7 +10,6 @@ import (
 
 )
 
-// LLMStruct defines the structure for a Large Language Model client
 type LLM struct {
 	ctx    context.Context
 	// client llms.Model
@@ -20,7 +19,6 @@ type Response struct {
 	Result string `json:"result"`
 }
 
-// NewLLM constructor function to create a new LLMStruct instance
 func NewLLM() *LLM {
 	ctx := context.Background()
 	return &LLM{ctx: ctx}
