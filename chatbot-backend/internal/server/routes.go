@@ -13,7 +13,6 @@ import (
 
 var llm *services.LLM
 
-// Response struct
 type Response struct {
 	Result string `json:"result"`
 }
@@ -25,9 +24,8 @@ func init() {
 func (s *Server) RegisterRoutes() http.Handler {
 	e := echo.New()
 
-	// CORS middleware configuration
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins:     []string{"http://localhost:8000"}, // Allow all origins (for demo purposes)
+		AllowOrigins:     []string{"http://localhost:8000"},
 		AllowMethods:     []string{"POST", "GET", "OPTIONS"},
 		AllowHeaders:     []string{"*"},
 		AllowCredentials: true,
@@ -46,7 +44,6 @@ type Message struct {
 	Description string
 }
 
-// HealthHandler handles requests to the "/api/chat" endpoint
 func (s *Server) Chat(c echo.Context) error {
 	var chat Message
 	if err := json.NewDecoder(c.Request().Body).Decode(&chat); err != nil {
@@ -63,26 +60,20 @@ func (s *Server) Chat(c echo.Context) error {
 	return c.JSON(http.StatusOK, res)
 }
 
-// HealthHandler handles requests to the "/api/download_audio/:file_id" endpoint
 func (s *Server) downloadAudio(c echo.Context) error {
-	// Parse file_id from the URL path
 	fileID, err := strconv.Atoi(c.Param("file_id"))
 	println(fileID)
 	if err != nil {
 		return err
 	}
 
-	// Get the temporary directory
 	directory := ".temp"
 
-	// Construct the filename
 	filename := strconv.Itoa(fileID) + ".wav"
 
-	// Serve the file
 	return c.File(directory + "/" + filename)
 }
 
-// HealthHandler handles requests to the "/health" endpoint
 func (s *Server) HealthHandler(c echo.Context) error {
 	return c.JSON(http.StatusOK, s.db.Health())
 }

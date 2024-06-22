@@ -49,7 +49,7 @@ func WithDatabaseService(db database.Service) Option {
 func (s *Server) initHTTPServer() {
 	s.httpServer = &http.Server{
 		Addr:         fmt.Sprintf(":%d", s.port),
-		Handler:      s.RegisterRoutes(), // Implement this method to setup routes
+		Handler:      s.RegisterRoutes(), 
 		IdleTimeout:  1 * time.Minute,
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 30 * time.Second,
