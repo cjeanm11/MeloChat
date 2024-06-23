@@ -10,6 +10,9 @@ services:
     command: make run-ci
     ports:
       - "8080:8080"
+    environment:
+      PY_BE_HOST: "host.docker.internal"
+
 
   python-backend:
     build:

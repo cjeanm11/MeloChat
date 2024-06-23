@@ -3,27 +3,25 @@
 build:
 	@echo "Building..."
 	@go build -o main cmd/api/main.go
-	
-# Run the application
-run:
-	@sh './scripts/start_py_server.sh' &
+
+run-local:
+	@echo "Starting Python backend..."
+	@export PY_BE_HOST='127.0.0.1' && sh './scripts/start_py_server.sh' &
+	@echo "Starting Go backend..."
 	@go run cmd/api/main.go
 
-# Run the application
+
 run-ci: 
 	@go run cmd/api/main.go
 
-# Test the application
 test:
 	@echo "Testing..."
 	@go test ./tests -v
 
-# Clean the binary
 clean:
 	@echo "Cleaning..."
 	@rm -f main
 
-# Live Reload
 watch:
 	@if command -v air > /dev/null; then \
 	    air; \

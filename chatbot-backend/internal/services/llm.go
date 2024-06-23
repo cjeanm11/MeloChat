@@ -7,7 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-
+	"os"
 )
 
 type LLM struct {
@@ -26,7 +26,14 @@ func NewLLM() *LLM {
 
 
 func (lm *LLM) GenerateAudio(prompt string) (Response, error) {
-	url := "http://host.docker.internal:5000/generate_audio"
+	host := os.Getenv("PY_BE_HOST")
+
+	if host == "" {
+		fmt.Println("PY_BE_HOST is not set")
+	} else {
+		fmt.Printf("Python Backend Host is: %s\n", host)
+	}
+	url := fmt.Sprintf("http://%s:5000/generate_audio", host )
 
 	payload := map[string]interface{}{
 		"description": prompt, 
