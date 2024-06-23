@@ -8,12 +8,10 @@ import (
 	"strconv"
 	"time"
 
-	"server-template/internal/database"
 )
 
 type Server struct {
 	port       int
-	db         database.Service
 	httpServer *http.Server
 }
 
@@ -23,7 +21,6 @@ type Option func(*Server)
 func NewServer(options ...Option) *Server {
 	s := &Server{
 		port: loadPortFromEnv(),
-		db:   database.New(),
 	}
 
 	for _, option := range options {
@@ -40,11 +37,6 @@ func WithPort(port int) Option {
 	}
 }
 
-func WithDatabaseService(db database.Service) Option {
-	return func(s *Server) {
-		s.db = db
-	}
-}
 
 func (s *Server) initHTTPServer() {
 	s.httpServer = &http.Server{

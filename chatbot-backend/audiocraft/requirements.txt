@@ -20,3 +20,6 @@ transformers
 demucs
 librosa
 gradio
+flask
+requests>=2.26.0
+SQLAlchemy~=1.4.0

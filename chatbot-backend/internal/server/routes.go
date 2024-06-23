@@ -75,5 +75,5 @@ func (s *Server) downloadAudio(c echo.Context) error {
 }
 
 func (s *Server) HealthHandler(c echo.Context) error {
-	return c.JSON(http.StatusOK, s.db.Health())
+	return c.JSON(http.StatusOK, true)
 }
