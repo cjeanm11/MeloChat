@@ -17,9 +17,9 @@ services:
       dockerfile: Dockerfile
     container_name: python-backend
     volumes:
-      - ./chatbot-backend/audiocraft:/app
-    ports:
-      - "5001:5000"
+      - ./chatbot-backend/audiocraft:/app 
+    expose:
+      - "5000" 
 
   frontend:
     image: node:14

@@ -25,7 +25,7 @@ func (s *Server) RegisterRoutes() http.Handler {
 	e := echo.New()
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins:     []string{"http://localhost:8000"},
+		AllowOrigins:     []string{"http://localhost:8000", "http://localhost"},
 		AllowMethods:     []string{"POST", "GET", "OPTIONS"},
 		AllowHeaders:     []string{"*"},
 		AllowCredentials: true,

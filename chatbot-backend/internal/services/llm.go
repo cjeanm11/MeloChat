@@ -26,7 +26,7 @@ func NewLLM() *LLM {
 
 
 func (lm *LLM) GenerateAudio(prompt string) (Response, error) {
-	url := "http://127.0.0.1:5000/generate_audio"
+	url := "http://host.docker.internal:5000/generate_audio"
 
 	payload := map[string]interface{}{
 		"description": prompt, 
