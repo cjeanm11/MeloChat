@@ -23,7 +23,7 @@ function Prompt(props) {
       return [...c];
     });
     setDisabled(true);
-    const lastText = props.getChat()[props.getChat().length - 1].text 
+    const lastText = props.getChat()[props.getChat().length - 1].text.slice(0, 8000); // Limit to approximately 2000 token
     const message = JSON.stringify({ description: lastText });
     let timerId = setInterval(() => {
       const currentDots = loadingText();

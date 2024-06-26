@@ -8,7 +8,9 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
-    "electron": "concurrently \"npm:start\" \"electron ./electron-main.js\""
+    "electron": "electron ./electron-main.js",
+    "start-electron": "concurrently \"npm:start\" \"npm:electron\""
+  
   },
   "license": "MIT",
   "devDependencies": {

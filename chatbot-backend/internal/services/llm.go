@@ -6,8 +6,11 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
+
+	"github.com/tiktoken-go/tokenizer"
 )
 
 type LLM struct {
@@ -70,4 +73,15 @@ func (lm *LLM) GenerateAudio(prompt string) (Response, error) {
 
 	fmt.Println("Result:", result)
 	return result, nil
+}
+
+func (lm *LLM) EstimateTokenCount(message string) int {
+    enc, err := tokenizer.ForModel("gpt-3.5-turbo") 
+    if err != nil {
+        log.Printf("Warning: Error loading tokenizer: %v", err)
+        return len(message) / 4 
+    }
+
+    encoded, _, err := enc.Encode(message)
+    return len(encoded)
 }

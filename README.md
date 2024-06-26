@@ -21,7 +21,7 @@ To start the application, follow these simple steps:
 
 5. **Run Backend Servers**: Navigate to the backend directory and execute `make run-local`.
 
-6. **Run Frontend**: Access the frontend directory and perform `npm install`, followed by `npm run electron` to launch the Solid.js frontend server.
+6. **Run Frontend**: Access the frontend directory and perform `npm install`, followed by `npm run start-electron` to launch the Solid.js frontend server.
 
 
 ---

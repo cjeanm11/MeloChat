@@ -5,6 +5,9 @@ import (
 )
 
 func main() {
-	srv := server.NewServer()
+	srv := server.NewServer(
+		server.WithRedis(0),
+	)
+
 	srv.Start()
 }

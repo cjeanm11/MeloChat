@@ -10,7 +10,7 @@ app.on('ready', () => {
 });
 
 // Exit app when all windows are closed
-app.on('window-all-closed',async () => {
+app.on('window-all-closed', async () => {
     app.quit();
 })
 
@@ -24,3 +24,4 @@ app.on('activate', () => {
     mainWindow.loadURL('http://localhost:8000');
   }
 });
+

@@ -7,14 +7,15 @@ import (
 	"os"
 	"strconv"
 	"time"
-
+	"github.com/redis/go-redis/v9"
+	"github.com/alicebob/miniredis/v2"
 )
 
 type Server struct {
 	port       int
 	httpServer *http.Server
+	RedisClient *redis.Client 
 }
-
 
 type Option func(*Server)
 
@@ -37,11 +38,10 @@ func WithPort(port int) Option {
 	}
 }
 
-
 func (s *Server) initHTTPServer() {
 	s.httpServer = &http.Server{
 		Addr:         fmt.Sprintf(":%d", s.port),
-		Handler:      s.RegisterRoutes(), 
+		Handler:      s.RegisterRoutes(),
 		IdleTimeout:  1 * time.Minute,
 		ReadTimeout:  10 * time.Second,
 		WriteTimeout: 30 * time.Second,
@@ -70,4 +70,17 @@ func loadPortFromEnv() int {
 	}
 
 	return port
+}
+
+func WithRedis(redisDB int) Option {
+    return func(s *Server) {
+        mr, err := miniredis.Run()
+        if err != nil {
+            log.Fatalf("Failed to start in-memory Redis server: %v", err)
+        }
+        s.RedisClient = redis.NewClient(&redis.Options{
+            Addr: mr.Addr(),
+            DB:   redisDB,  
+        })
+    }
 }
