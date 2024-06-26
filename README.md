@@ -3,7 +3,10 @@
 MeloChat is an chatbot project that merges Golang, Python's Flask, and Solid.js to create a music-generating tool.
 
 
-<img src="./image_exemple.png" alt="app image" width="700"/>
+<figure>
+  <img src="./image_exemple.png" alt="App image" width="700"/>
+  <figcaption>Example of the app interface. (Duration is set to 1 sec for testing.)</figcaption>
+</figure>
 
 This app leverages the Audiocraft model to enhance its capabilities in generating music and delivering audio interactions. Acquire the Audiocraft Hugging Face model from [Hugging Face](https://huggingface.co/spaces/facebook/MusicGen/tree/main/audiocraft).
 

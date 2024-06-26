@@ -17,3 +17,45 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* General Styling */
+audio {
+  background-color:  #000000; /* White background */
+  color: black;
+  opacity: 50%;
+  border: 1px solid  #1e293b; 
+  border-color: #1e293b;
+
+  /* width: 100%;  */
+}
+img, video, canvas, audio, iframe, embed, object {
+  background-color:  #1e293b !important /* White background */
+}
+
+/* WebKit (Chrome, Safari) */
+audio::-webkit-media-controls-panel {
+  background-color: #1e293b; /* White background for the controls */
+  opacity: 100%;
+}
+audio::-webkit-media-controls-play-button {
+  background-color: #1e293b; 
+  border: 0px;
+  opacity: 100%;
+}
+
+/* Firefox */
+audio::-moz-range-track {
+  background-color: #1e293b;
+  border: 0px;
+}
+audio::-moz-range-thumb {
+  background-color: #1e293b;
+}
+
+/* Internet Explorer and Edge */
+audio::-ms-fill-lower {
+  background-color: #343638; 
+}
+audio::-ms-fill-upper {
+  background-color: rgb(0, 0, 0); 
+}
