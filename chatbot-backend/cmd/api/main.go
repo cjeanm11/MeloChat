@@ -8,6 +8,5 @@ func main() {
 	srv := server.NewServer(
 		server.WithRedis(0),
 	)
-
 	srv.Start()
 }

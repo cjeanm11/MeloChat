@@ -7,7 +7,7 @@ function Chat (props) {
     const [loadingText, setLoadingText] = createSignal("Loading");
     const dots = "...";
 
-    onMount(() => { // Remove dependency array
+    onMount(() => { 
         setInterval(() => {
             const currentDots = loadingText();
             setLoadingText(currentDots === dots.repeat(3) ? "Loading" : currentDots + ".");
